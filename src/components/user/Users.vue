@@ -177,9 +177,7 @@
       <!-- 底部区域 -->
       <span slot="footer" class="dialog-footer">
         <el-button @click="setRoleDditDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveRoleInfo"
-          >确 定</el-button
-        >
+        <el-button type="primary" @click="saveRoleInfo">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -277,7 +275,6 @@ export default {
       const { data: res } = await this.$http.get('users', {
         params: this.queryInfo,
       })
-      console.log(res)
       if (res.meta.status !== 200)
         return this.$message.error('获取用户列表失败！')
       this.userList = res.data.users
@@ -285,13 +282,11 @@ export default {
     },
     // 监听 pagesize 改变的事件
     handleSizeChange(newSize) {
-      console.log('newSize', newSize)
       this.queryInfo.pagesize = newSize
       this.getUserList()
     },
     // 监听页码值改变的事件
     handleCurrentChange(newPage) {
-      console.log('newPage', newPage)
       this.queryInfo.pagenum = newPage
       this.getUserList()
     },
@@ -300,8 +295,6 @@ export default {
       const { data: res } = await this.$http.put(
         `users/${userInfo.id}/state/${userInfo.mg_state}`
       )
-      console.log(typeof userInfo.id)
-      console.log(res)
       if (res.meta.status !== 200) {
         user.userInfo.mg_state = !userInfo.mg_state
         return this.$message.error('更新用户状态失败！')
@@ -331,7 +324,6 @@ export default {
       if (res.meta.status !== 200)
         return this.$message.error('查询用户信息失败！')
       this.editForm = res.data
-      console.log(res)
       this.editDialogVisible = true
     },
     // 监听修改对话框的关闭事件
@@ -355,7 +347,6 @@ export default {
         this.editDialogVisible = false // 关闭对话框
         this.getUserList() // 更新列表数据
         this.$message.success('更新用户成功') // 提示
-        console.log(res)
       })
     },
     // 根据 id 删除用户
@@ -390,15 +381,17 @@ export default {
       if (res.meta.status !== 200)
         return this.$message.error('获取角色列表失败')
       this.rolesList = res.data
-      console.log(this.rolesList)
       this.setRoleDditDialogVisible = true
     },
     // 点击按钮分配角色
     async saveRoleInfo() {
       if (!this.selectedRoleId) return this.$message.error('请选择分配角色！')
-      const { data: res } = await this.$http.put(`users/${this.userInfo.id}/role`, {
-        rid: this.selectedRoleId
-      })
+      const { data: res } = await this.$http.put(
+        `users/${this.userInfo.id}/role`,
+        {
+          rid: this.selectedRoleId,
+        }
+      )
       if (res.meta.status !== 200) return this.$message.error('更新角色失败！')
       this.$message.success('更新角色成功')
       this.getUserList()
@@ -408,7 +401,7 @@ export default {
     setRoleDialogClosed() {
       this.selectedRoleId = ''
       this.userInfo = {}
-    }
+    },
   },
 }
 </script>

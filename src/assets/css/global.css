@@ -21,3 +21,6 @@ body,
 .el-pagination {
     padding-top: 15px;
 }
+.el-cascader-menu {
+    height: 400px;
+}

@@ -15,6 +15,7 @@ axios.interceptors.request.use(config => {
   // 最后必须 return config
   return config
 })
+
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
