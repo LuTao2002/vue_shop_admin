@@ -1,4 +1,4 @@
-# vue_shop
+# vue + element ui 电商后台管理系统
 
 ## Project setup
 ```
